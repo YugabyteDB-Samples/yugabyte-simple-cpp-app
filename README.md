@@ -9,8 +9,9 @@ If you use a different type of deployment, then update the `sample-app.cpp` file
 
 * A 32-bit (x86) or 64-bit (x64) architecture machine. Use [Rosetta](https://support.apple.com/en-us/HT211861) to build and run on Apple silicon.
 * gcc 4.1.2 or later, clang 3.4 or later installed.
-* OpenSSL 1.1.1 or later (used by libpqxx to establish secure SSL connections).
-* [libpqxx](http://pqxx.org/development/libpqxx/) driver.
+* OpenSSL 1.1.1 or later (used by libpq and libpqxx to establish secure SSL connections).
+* [libpq](https://docs.yugabyte.com/latest/reference/drivers/ysql-client-drivers/#libpq) - the official PostgreSQL driver for C (reused by libpqxx).
+* [libpqxx](https://docs.yugabyte.com/latest/reference/drivers/ysql-client-drivers/#libpqxx) - the official PostgreSQL driver for C++.
 * Command line tool or your favourite IDE, such as Visual Studio Code.
 
 ## Start Yugabyte Cloud Cluster
@@ -41,15 +42,20 @@ Note, you can easily find all the settings on the Yugabyte Cloud dashboard:
 
 ## Run the Application
 
-1. Install the libpqxx driver:
-    * Homebrew users can install using the [brew install libpqxx](https://formulae.brew.sh/formula/libpqxx) command.
+1. Install the [libpq](https://docs.yugabyte.com/latest/reference/drivers/ysql-client-drivers/#libpq) driver:
+    * Homebrew users can install using the `brew install libpq` command (find details [here](https://formulae.brew.sh/formula/libpq)).
+    * Others can download the PostgreSQL binaries and source from the [PostgreSQL Downloads](https://www.postgresql.org/download/) page.
+2. Install the [libpqxx](https://docs.yugabyte.com/latest/reference/drivers/ysql-client-drivers/#libpqxx) driver:
+    * Homebrew users can install using the `brew install libpqxx` command (find details [here](https://formulae.brew.sh/formula/libpqxx)).
     * Others can build the driver using one of the options listed in the [Building libpqxx](https://github.com/jtv/libpqxx#building-libpqxx) section.
     
-2. Replace the `{libpq-install-dir}` placeholder with your libpq installation root dir and build the application with `gcc` or `clang`:
+3. Build the application after replacing `{path-to-libpq}` and `{path-to-libpqxx}` with the paths to the libpq and libpqxx (for example, `/usr/local/opt/libpq` and `/usr/local/opt/libpqxx`):
     ```bash
-    gcc sample-app.c -o sample-app -I{libpq-install-dir}/libpq/include -L{libpq-install-dir}/libpq/lib -lpq
+    g++ -std=c++17 sample-app.cpp -o sample-app -lpqxx -lpq \
+    -I/usr/local/opt/libpq/include -I/usr/local/opt/libpqxx/include \
+    -L/usr/local/opt/libpq/lib -L/usr/local/opt/libpqxx/lib 
     ```
-3. Run the application:
+4. Run the application:
     ```bash
     ./sample-app
     ```
