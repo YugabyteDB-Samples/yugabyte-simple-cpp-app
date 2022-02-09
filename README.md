@@ -30,7 +30,7 @@ git clone https://github.com/yugabyte/yugabyte-simple-cpp-app && cd yugabyte-sim
 
 ## Provide Yugabyte Cloud Connection Parameters
 
-Locate and define the following configuration-related macros in the `sample-app.cpp` file:
+Open the `sample-app.cpp` file and specify the following configuration parameters:
 * `HOST` - the hostname of your Yugabyte Cloud instance.
 * `USER` - the username for your instance.
 * `PASSWORD` - the database password.
@@ -49,11 +49,11 @@ Note, you can easily find all the settings on the Yugabyte Cloud dashboard:
     * Homebrew users can install using the `brew install libpqxx` command (find details [here](https://formulae.brew.sh/formula/libpqxx)).
     * Others can build the driver using one of the options listed in the [Building libpqxx](https://github.com/jtv/libpqxx#building-libpqxx) section.
     
-3. Build the application after replacing `{path-to-libpq}` and `{path-to-libpqxx}` with the paths to the libpq and libpqxx installations (for example, `/usr/local/opt/libpq` and `/usr/local/opt/libpqxx`):
+3. Build the application after replacing `{path-to-libpq}` and `{path-to-libpqxx}` with the paths to the libpq and libpqxx installations (for example, `/usr/local/opt`):
     ```bash
     g++ -std=c++17 sample-app.cpp -o sample-app -lpqxx -lpq \
-    -I/usr/local/opt/libpq/include -I/usr/local/opt/libpqxx/include \
-    -L/usr/local/opt/libpq/lib -L/usr/local/opt/libpqxx/lib 
+    -I{path-to-libpq}/libpq/include -I{path-to-libpqxx}/libpqxx/include \
+    -L{path-to-libpq}/libpq/lib -L{path-to-libpqxx}/libpqxx/lib 
     ```
 4. Run the application:
     ```bash
@@ -64,23 +64,23 @@ Upon successful execution, you will see output similar to the following:
 
 ```bash
 >>>> Connecting to YugabyteDB!
->>>> Connected to YugabyteDB!
+>>>> Successfully connected to YugabyteDB!
 >>>> Successfully created table DemoAccount.
 >>>> Selecting accounts:
-name = Jessica, age = 28, country = USA, balance = 10000
-name = John, age = 28, country = Canada, balance = 9000
+name=Jessica, age=28, country=USA, balance=10000
+name=John, age=28, country=Canada, balance=9000
 >>>> Transferred 800 between accounts.
 >>>> Selecting accounts:
-name = Jessica, age = 28, country = USA, balance = 9200
-name = John, age = 28, country = Canada, balance = 9800
+name=Jessica, age=28, country=USA, balance=9200
+name=John, age=28, country=Canada, balance=9800
 ```
 
 ## Explore Application Logic
 
-Congrats! You've successfully executed a simple C app that works with Yugabyte Cloud.
+Congrats! You've successfully executed a simple C++ app that works with Yugabyte Cloud.
 
-Now, explore the source code of `sample-app.c`:
-1. `connect` function - establishes a connection with your cloud instance via the libpq driver.
+Now, explore the source code of `sample-app.cpp`:
+1. `connect` function - establishes a connection with your cloud instance via the libpqxx driver.
 3. `createDatabase` function - creates a table and populates it with sample data.
 4. `selectAccounts` function - queries the data with SQL `SELECT` statements.
 5. `transferMoneyBetweenAccounts` function - updates records consistently with distributed transactions.
