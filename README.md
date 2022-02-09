@@ -49,7 +49,7 @@ Note, you can easily find all the settings on the Yugabyte Cloud dashboard:
     * Homebrew users can install using the `brew install libpqxx` command (find details [here](https://formulae.brew.sh/formula/libpqxx)).
     * Others can build the driver using one of the options listed in the [Building libpqxx](https://github.com/jtv/libpqxx#building-libpqxx) section.
     
-3. Build the application after replacing `{path-to-libpq}` and `{path-to-libpqxx}` with the paths to the libpq and libpqxx (for example, `/usr/local/opt/libpq` and `/usr/local/opt/libpqxx`):
+3. Build the application after replacing `{path-to-libpq}` and `{path-to-libpqxx}` with the paths to the libpq and libpqxx installations (for example, `/usr/local/opt/libpq` and `/usr/local/opt/libpqxx`):
     ```bash
     g++ -std=c++17 sample-app.cpp -o sample-app -lpqxx -lpq \
     -I/usr/local/opt/libpq/include -I/usr/local/opt/libpqxx/include \
