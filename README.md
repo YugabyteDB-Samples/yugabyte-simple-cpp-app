@@ -2,10 +2,10 @@
 
 This application connects to your YugabyteDB instance via the 
 [libpqxx](http://pqxx.org/development/libpqxx/) driver for PostgreSQL and performs basic SQL 
-operations. The instructions below are provided for [Yugabyte Cloud](https://cloud.yugabyte.com/) deployments. 
+operations. The instructions below are provided for [YugabyteDB Managed](https://cloud.yugabyte.com/) deployments. 
 If you use a different type of deployment, then update the `sample-app.cpp` file with proper connection parameters.
 
-## Prerequisite
+## Prerequisites
 
 * A 32-bit (x86) or 64-bit (x64) architecture machine. Use [Rosetta](https://support.apple.com/en-us/HT211861) to build and run on Apple silicon.
 * gcc 4.1.2 or later, clang 3.4 or later installed.
@@ -14,9 +14,9 @@ If you use a different type of deployment, then update the `sample-app.cpp` file
 * [libpqxx](https://docs.yugabyte.com/latest/reference/drivers/ysql-client-drivers/#libpqxx) - the official PostgreSQL driver for C++.
 * Command line tool or your favourite IDE, such as Visual Studio Code.
 
-## Start Yugabyte Cloud Cluster
+## Start YugabyteDB Managed Cluster
 
-* [Start YugabyteDB Cloud](https://docs.yugabyte.com/latest/yugabyte-cloud/cloud-quickstart/qs-add/) instance. You can use
+* [Start YugabyteDB Managed](https://docs.yugabyte.com/latest/yugabyte-cloud/cloud-quickstart/qs-add/) instance. You can use
 the free tier at no cost.
 * Add an IP address of your machine/laptop to the [IP allow list](https://docs.yugabyte.com/latest/yugabyte-cloud/cloud-secure-clusters/add-connections/#manage-ip-allow-lists)
 
@@ -28,15 +28,15 @@ Clone the repository and change dirs into it:
 git clone https://github.com/yugabyte/yugabyte-simple-cpp-app && cd yugabyte-simple-cpp-app
 ```
 
-## Provide Yugabyte Cloud Connection Parameters
+## Provide Cluster Connection Parameters
 
 Open the `sample-app.cpp` file and specify the following configuration parameters:
-* `HOST` - the hostname of your Yugabyte Cloud instance.
+* `HOST` - the hostname of your instance.
 * `USER` - the username for your instance.
 * `PASSWORD` - the database password.
 * `SSL_ROOT_CERT` - a full path to your CA root cert (for example, `/Users/dmagda/certificates/root.crt`). 
 
-Note, you can easily find all the settings on the Yugabyte Cloud dashboard:
+Note, you can easily find all the settings on the YugabyteDB Managed dashboard:
 
 ![image](resources/cloud_app_settings.png)
 
@@ -77,13 +77,13 @@ name=John, age=28, country=Canada, balance=9800
 
 ## Explore Application Logic
 
-Congrats! You've successfully executed a simple C++ app that works with Yugabyte Cloud.
+Congrats! You've successfully executed a simple C++ app that works with YugabyteDB.
 
 Now, explore the source code of `sample-app.cpp`:
 1. `connect` function - establishes a connection with your cloud instance via the libpqxx driver.
-3. `createDatabase` function - creates a table and populates it with sample data.
-4. `selectAccounts` function - queries the data with SQL `SELECT` statements.
-5. `transferMoneyBetweenAccounts` function - updates records consistently with distributed transactions.
+2. `createDatabase` function - creates a table and populates it with sample data.
+3. `selectAccounts` function - queries the data with SQL `SELECT` statements.
+4. `transferMoneyBetweenAccounts` function - updates records consistently with distributed transactions.
 
 ## Questions or Issues?
 
