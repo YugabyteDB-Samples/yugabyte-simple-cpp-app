@@ -1,12 +1,12 @@
 #include <iostream>
 #include <pqxx/pqxx>
 
-const std::string HOST = "";
+const std::string HOST = "127.0.0.1";
 const std::string PORT = "5433";
 const std::string DB_NAME = "yugabyte";
-const std::string USER = "";
-const std::string PASSWORD = "";
-const std::string SSL_MODE = "verify-full";
+const std::string USER = "yugabyte";
+const std::string PASSWORD = "yugabyte";
+const std::string SSL_MODE = "";
 const std::string SSL_ROOT_CERT = "";
 
 pqxx::connection* connect();
@@ -120,7 +120,7 @@ void transferMoneyBetweenAccounts(pqxx::connection *conn, int amount) {
     } catch (pqxx::sql_error const &e) {
         if (e.sqlstate().compare("40001") == 0) {
             std::cerr << "The operation is aborted due to a concurrent transaction that is modifying the same set of rows." 
-                      << "Consider adding retry logic for production-grade applications." << std::endl;
+                      << "Consider adding retry logic or switch to the pessimistic locking." << std::endl;
         }
         throw e;   
     }
